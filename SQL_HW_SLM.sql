@@ -226,6 +226,20 @@ group by store.store_id;
 -- 7h. List the top five genres in gross revenue in descending order. 
 -- (Hint: you may need to use the following tables: category, film_category, inventory, payment, and rental.)
 
+select sum(payment.amount) as Revenue, category.name
+from category
+join film_category on category.category_id = film_category.category_id
+join inventory on inventory.film_id = film_category.film_id
+join rental on rental.inventory_id = inventory.inventory_id
+join payment on payment.rental_id = rental.rental_id
+group by category.name
+order by Revenue desc
+limit 5;
+
+-- 8a. In your new role as an executive, 
+-- you would like to have an easy way of viewing the Top five genres by gross revenue. 
+-- Use the solution from the problem above to create a view. 
+-- If you haven't solved 7h, you can substitute another query to create a view.
 
 
 
