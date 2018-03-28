@@ -241,5 +241,22 @@ limit 5;
 -- Use the solution from the problem above to create a view. 
 -- If you haven't solved 7h, you can substitute another query to create a view.
 
+create view gross_revenue as 
+select sum(payment.amount) as Revenue, category.name
+from category
+join film_category on category.category_id = film_category.category_id
+join inventory on inventory.film_id = film_category.film_id
+join rental on rental.inventory_id = inventory.inventory_id
+join payment on payment.rental_id = rental.rental_id
+group by category.name
+order by Revenue desc
+limit 5;
 
+-- 8b. How would you display the view that you created in 8a?
+
+select * from gross_revenue;
+
+-- 8c. You find that you no longer need the view top_five_genres. Write a query to delete it.
+
+drop view gross_revenue;
 
